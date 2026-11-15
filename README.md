@@ -75,4 +75,6 @@ eslint, @eslint/js, globals, typescript-eslint, @eslint/json, @eslint/markdown, 
 npm i -D prettier
 
 npm i -D eslint-plugin-prettier
+
+npm i -D eslint-config-prettier
 ```
