@@ -20,4 +20,6 @@ npm create vite@latest ./
 # │  ○ JavaScript
 # ◆  Install with npm and start now?
 # │  ● Yes / ○ No
+
+npm i -D typescript@~5.9.0
 ```
