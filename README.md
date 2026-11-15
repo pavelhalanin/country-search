@@ -81,4 +81,6 @@ npm i -D eslint-config-prettier
 npm i -D vitest
 
 npm i -D @vitest/coverage-v8
+
+npm i -D husky
 ```
