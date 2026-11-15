@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
     "build": "tsc && vite build",
+    "deploy": "npx gh-pages -d ./dist -b gh-pages",
     "preview": "vite preview"
   },
   "devDependencies": {
