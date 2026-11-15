@@ -71,4 +71,6 @@ eslint, @eslint/js, globals, typescript-eslint, @eslint/json, @eslint/markdown, 
   pnpm
   bun
 √ Which package manager do you want to use? · npm
+
+npm i -D prettier
 ```
