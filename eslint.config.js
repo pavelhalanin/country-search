@@ -6,6 +6,8 @@ import markdown from "@eslint/markdown";
 import css from "@eslint/css";
 import shell from "@eslint/shell";
 import { defineConfig } from "eslint/config";
+import prettierPlugin from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
 
 export default defineConfig([
   {
@@ -13,7 +15,10 @@ export default defineConfig([
   },
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
-    plugins: { js },
+    plugins: { js, prettier: prettierPlugin },
+    rules: {
+      "prettier/prettier": "error",
+    },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
   },
@@ -54,4 +59,5 @@ export default defineConfig([
     language: "shell/bash",
     extends: ["shell/recommended"],
   },
+  prettierConfig,
 ]);
