@@ -16,6 +16,7 @@
     "@eslint/shell": "^0.1.2",
     "eslint": "^10.15.0",
     "globals": "^17.14.0",
+    "prettier": "^3.10.1",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.72.2",
     "vite": "^8.3.6"
