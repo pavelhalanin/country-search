@@ -18,6 +18,9 @@ export default defineConfig([
     plugins: { js, prettier: prettierPlugin },
     rules: {
       "prettier/prettier": "error",
+      "no-var": "error",
+      "prefer-const": "error",
+      "no-console": "warn",
     },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
