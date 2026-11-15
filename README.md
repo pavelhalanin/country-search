@@ -77,4 +77,6 @@ npm i -D prettier
 npm i -D eslint-plugin-prettier
 
 npm i -D eslint-config-prettier
+
+npm i -D vitest
 ```
