@@ -73,4 +73,6 @@ eslint, @eslint/js, globals, typescript-eslint, @eslint/json, @eslint/markdown, 
 √ Which package manager do you want to use? · npm
 
 npm i -D prettier
+
+npm i -D eslint-plugin-prettier
 ```
