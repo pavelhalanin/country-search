@@ -21,6 +21,16 @@ export default defineConfig([
       "no-var": "error",
       "prefer-const": "error",
       "no-console": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
     },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
