@@ -1,3 +1,4 @@
+import { repeatButton } from "./repeatButton/repeatButton";
 import { result } from "./result/result";
 import {
   resultStatus,
@@ -14,6 +15,7 @@ export const app = () => {
 
   div.appendChild(search());
   div.appendChild(resultStatus());
+  div.appendChild(repeatButton());
   div.appendChild(result());
   resultStatusWithSearchText();
 };

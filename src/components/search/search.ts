@@ -28,6 +28,8 @@ export const search = (): HTMLInputElement => {
 
     try {
       setStatusIsLoading();
+      renderResults([]);
+      renderRetryButton(() => runSearch(query), query);
       await new Promise((resolve) => setTimeout(resolve, 500));
       const countries = await searchCountries(query, c.signal);
       renderResults(countries);
@@ -43,4 +45,21 @@ export const search = (): HTMLInputElement => {
   });
 
   return input;
+};
+
+export const renderRetryButton = (onRetry: () => void, query: string): void => {
+  const selector = "#rebeat_button";
+  const div = document.querySelector(selector);
+  if (!div) {
+    throw Error(`Node is not found: ${selector}`);
+  }
+
+  div.replaceChildren();
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.textContent = `Повторить "${query}"`;
+  btn.addEventListener("click", onRetry);
+
+  div.append(btn);
 };
