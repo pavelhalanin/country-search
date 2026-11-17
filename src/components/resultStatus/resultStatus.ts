@@ -33,10 +33,21 @@ export const resultStatusWithCount = (count: number, search: string): void => {
   const bSearch = document.createElement("b");
   bSearch.textContent = `"${search}"`;
 
+  const br = document.createElement("br");
+
+  if (count === 0) {
+    div.replaceChildren();
+    div.append("Ничего не найдено. Попробуйте ввести что-то другое...");
+    div.appendChild(br);
+    div.append("Вы искали: ");
+    div.appendChild(bSearch);
+    return;
+  }
+
   div.replaceChildren();
   div.append("Найдено ");
   div.appendChild(bCount);
-  div.appendChild(document.createElement("br"));
+  div.appendChild(br);
   div.append("Вы искали: ");
   div.appendChild(bSearch);
 };
