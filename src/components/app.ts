@@ -1,3 +1,7 @@
+import {
+  historySearch,
+  renderHistorySearch,
+} from "./historySearch/historySearch";
 import { repeatButton } from "./repeatButton/repeatButton";
 import { result } from "./result/result";
 import {
@@ -15,7 +19,9 @@ export const app = () => {
 
   div.appendChild(search());
   div.appendChild(resultStatus());
+  div.appendChild(historySearch());
   div.appendChild(repeatButton());
   div.appendChild(result());
   resultStatusWithSearchText();
+  renderHistorySearch();
 };

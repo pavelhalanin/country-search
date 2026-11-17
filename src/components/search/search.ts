@@ -7,6 +7,14 @@ import {
   resultStatusWithSearchText,
   setStatusIsLoading,
 } from "../resultStatus/resultStatus";
+import { addToHistorySearch } from "../../state/historySearch";
+import { renderHistorySearch } from "../historySearch/historySearch";
+
+let runSearchRef: ((q: string) => void) | null = null;
+
+export const repeatSearch = (query: string): void => {
+  runSearchRef?.(query);
+};
 
 export const search = (): HTMLInputElement => {
   const input = document.createElement("input");
@@ -17,6 +25,7 @@ export const search = (): HTMLInputElement => {
   let current: AbortController | null = null;
 
   const runSearch = debounce(async (query: string) => {
+    runSearchRef = runSearch;
     current?.abort();
     if (query.length === 0) {
       resultStatusWithSearchText();
@@ -29,6 +38,8 @@ export const search = (): HTMLInputElement => {
     try {
       setStatusIsLoading();
       renderResults([]);
+      addToHistorySearch(query);
+      renderHistorySearch();
       renderRetryButton(() => runSearch(query), query);
       await new Promise((resolve) => setTimeout(resolve, 500));
       const countries = await searchCountries(query, c.signal);
@@ -43,6 +54,8 @@ export const search = (): HTMLInputElement => {
   input.addEventListener("input", () => {
     runSearch(input.value.trim());
   });
+
+  runSearch("");
 
   return input;
 };
