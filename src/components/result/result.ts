@@ -1,5 +1,6 @@
 import type { CountryDto, CountryRawDto } from "../../core/mapCountry.dto";
 import { mapCountryResponse } from "../../core/mapCountryResponse";
+import { openModal } from "../dialog/dialog";
 import "./result.css";
 
 export const result = (): HTMLDivElement => {
@@ -52,17 +53,4 @@ const getElementBlock = (country: CountryDto): HTMLDivElement => {
   div.appendChild(getTextBlock(country));
   div.addEventListener("click", () => openModal(country));
   return div;
-};
-
-const openModal = (country: CountryDto): void => {
-  alert(
-    [
-      `Страна: ${country.name}`,
-      `Площадь: ${country.area}`,
-      `Численость населения: ${country.population}`,
-      `Плотность населения: ${country.populationDensity}`,
-      `Регион: ${country.region}`,
-      `Домен: ${country.topLevelDomain.join(", ")}`,
-    ].join("\n")
-  );
 };
