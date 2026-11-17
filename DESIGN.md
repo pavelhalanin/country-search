@@ -30,3 +30,38 @@ Debounce лишь откладывает слудющий запуск. Если
 Выбрано delay = 1000 мс - это порог между "пользователь ещё печатает" и "пользователь остановился". Меньше 200-300 мс - debounce почти не работает: пауза между символами успевает превысить delay и fn срабатывает на промежуточных s/sp/spa/spai. Больше 1500–2000 мс - воспринимается как "тормоза".
 
 Итог: debounce уменьшает частоту запусков, AbortController убирает наложение уже запущенных fetch. Гарантия "один запрос — один рендер" достигается только связкой обеих техник.
+
+## Сложность mapCountryResponse
+
+Фунция mapCountryResponse из сырыых данные raw - возращает объект с нужными данными с типом interface CountryDto.
+
+Обращения к полю имеет сложность O(1), то есть получим O(12).
+
+Но если мы выполняем в цикле, то получаем O(1) + O(n * (1 + 1 + 1 + 12 + 1)) = O(1) + O(16n) = O(1 + 16n) ~= O(n)
+
+```js
+let i = 0; // O(1)
+while (i < rawArray.length) { // O(n)
+    const country = mapCountryResponse(rawArray[i]); // O(1) + O(1)
+    div.appendChild(getElementBlock(country)); // O(1) + O(12)
+    i = i + 1; // O(1)
+}
+
+export function mapCountryResponse(raw: CountryRawDto): CountryDto {
+  return {
+    area: raw.area, // O(1)
+    name: raw.name, // O(1)
+    flagSrc: raw.flags.png, // O(1) + O(1)
+    region: raw.region, // O(1)
+    borders: raw.borders, // O(1)
+    capital: raw.capital, // O(1)
+    timezones: raw.timezones, // O(1)
+    population: raw.population, // O(1)
+    callingCodes: raw.callingCodes, // O(1)
+    topLevelDomain: raw.topLevelDomain, // O(1)
+    populationDensity: raw.populationDensity, // O(1)
+  };
+}
+```
+
+Итог: функция mapCountryResponse в цикле имеет сложность O(1 + 16n), которая теоретически равна O(n).
