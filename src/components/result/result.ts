@@ -1,36 +1,11 @@
-import type { CountryDto, CountryRawDto } from "../core/mapCountry.dto";
-import { mapCountryResponse } from "../core/mapCountryResponse";
+import type { CountryDto, CountryRawDto } from "../../core/mapCountry.dto";
+import { mapCountryResponse } from "../../core/mapCountryResponse";
 import "./result.css";
 
 export const result = (): HTMLDivElement => {
   const div = document.createElement("div");
   div.setAttribute("id", "result_block");
-
   return div;
-};
-
-export const setIsLoading = (): void => {
-  const selecter = "#result_block";
-  const div = document.querySelector(selecter);
-  if (!div) {
-    throw new Error(`Node is not found: ${selecter}`);
-  }
-
-  div.replaceChildren();
-
-  const span = document.createElement("span");
-  span.classList.add("loader");
-
-  div.appendChild(span);
-};
-
-export const setCancelLoading = (): void => {
-  const selecter = "#result_block";
-  const div = document.querySelector(selecter);
-  if (!div) {
-    throw new Error(`Node is not found: ${selecter}`);
-  }
-  div.replaceChildren();
 };
 
 export const renderResults = (rawArray: Array<CountryRawDto>) => {
@@ -39,6 +14,7 @@ export const renderResults = (rawArray: Array<CountryRawDto>) => {
   if (!div) {
     throw new Error(`Node is not found: ${selecter}`);
   }
+
   div.replaceChildren();
 
   div.classList.add("result__wrapper");

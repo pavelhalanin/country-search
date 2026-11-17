@@ -1,5 +1,9 @@
-import { result } from "./result";
-import { search } from "./search";
+import { result } from "./result/result";
+import {
+  resultStatus,
+  resultStatusWithSearchText,
+} from "./resultStatus/resultStatus";
+import { search } from "./search/search";
 
 export const app = () => {
   const selector = "#app";
@@ -9,5 +13,7 @@ export const app = () => {
   }
 
   div.appendChild(search());
+  div.appendChild(resultStatus());
   div.appendChild(result());
+  resultStatusWithSearchText();
 };

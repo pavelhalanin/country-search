@@ -1,0 +1,36 @@
+.info {
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  color: #055160;
+  background-color: #cff4fc;
+  border-color: #b6effb;
+}
+
+.result_count__wrapper {
+  margin: 8px 0;
+}
+
+.loader {
+  --color-1: #badbcc;
+  --color-2: #0f5132;
+  --size: 1px;
+
+  width: calc(32 * var(--size));
+  height: calc(32 * var(--size));
+  border: calc(5 * var(--size)) solid var(--color-1);
+  border-bottom-color: var(--color-2);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

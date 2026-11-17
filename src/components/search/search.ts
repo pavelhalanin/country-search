@@ -1,7 +1,12 @@
 import "./search.css";
-import { debounce } from "../core/debounce";
-import { searchCountries } from "../core/searchCountries";
-import { setIsLoading, setCancelLoading, renderResults } from "./result";
+import { debounce } from "../../core/debounce";
+import { searchCountries } from "../../core/searchCountries";
+import { renderResults } from "../result/result";
+import {
+  resultStatusWithCount,
+  resultStatusWithSearchText,
+  setStatusIsLoading,
+} from "../resultStatus/resultStatus";
 
 export const search = (): HTMLInputElement => {
   const input = document.createElement("input");
@@ -13,14 +18,20 @@ export const search = (): HTMLInputElement => {
 
   const runSearch = debounce(async (query: string) => {
     current?.abort();
+    if (query.length === 0) {
+      resultStatusWithSearchText();
+      renderResults([]);
+      return;
+    }
     const c = new AbortController();
     current = c;
 
     try {
-      setIsLoading();
+      setStatusIsLoading();
+      await new Promise((resolve) => setTimeout(resolve, 500));
       const countries = await searchCountries(query, c.signal);
-      setCancelLoading();
       renderResults(countries);
+      resultStatusWithCount(countries.length, query);
     } catch (e) {
       if ((e as Error).name === "AbortError") return;
       throw e;
