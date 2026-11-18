@@ -6,7 +6,7 @@ export const openModal = (country: CountryDto): void => {
   dialog.setAttribute("id", "country_modal");
   dialog.classList.add("country_modal");
 
-  document.querySelectorAll("#country_modal").forEach((e) => e.remove());
+  removeModalNodes();
 
   dialog.appendChild(closeModalButton());
 
@@ -34,7 +34,7 @@ export const closeModal = (): void => {
   if (dialog instanceof HTMLDialogElement) {
     dialog.close();
   }
-  document.querySelectorAll("#country_modal").forEach((e) => e.remove());
+  removeModalNodes();
 };
 
 export const closeModalButton = (): HTMLButtonElement => {
@@ -43,4 +43,8 @@ export const closeModalButton = (): HTMLButtonElement => {
   button.addEventListener("click", () => closeModal());
   button.textContent = "x";
   return button;
+};
+
+export const removeModalNodes = () => {
+  document.querySelectorAll("#country_modal").forEach((e) => e.remove());
 };
