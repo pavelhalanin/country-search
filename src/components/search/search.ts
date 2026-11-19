@@ -3,6 +3,7 @@ import { debounce } from "../../core/debounce";
 import { searchCountries } from "../../core/searchCountries";
 import { renderResults } from "../result/result";
 import {
+  resultStatusAbort,
   resultStatusWithCount,
   resultStatusWithException,
   resultStatusWithNoInterner,
@@ -54,7 +55,7 @@ export const search = (): HTMLInputElement => {
       resultStatusWithCount(countries.length, query);
     } catch (exception) {
       if ((exception as Error).name === "AbortError") {
-        resultStatusWithException("Отмена fetch (AbortError)");
+        resultStatusAbort();
         return;
       }
 

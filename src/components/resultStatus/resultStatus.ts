@@ -47,6 +47,23 @@ export const resultStatusWithException = (message: string) => {
   div.appendChild(d);
 };
 
+export const resultStatusAbort = () => {
+  const selector = "#result_count";
+  const div = document.querySelector(selector);
+  if (!div) {
+    throw new Error(`Node is not found: ${selector}`);
+  }
+
+  div.replaceChildren();
+
+  const d = document.createElement("div");
+  d.classList.add("info");
+
+  d.textContent = "AbortError (не ошибка) - мы отменили запрос";
+
+  div.appendChild(d);
+};
+
 export const resultStatusWithCount = (count: number, search: string): void => {
   const selector = "#result_count";
   const div = document.querySelector(selector);
