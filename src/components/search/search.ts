@@ -4,6 +4,7 @@ import { searchCountries } from "../../core/searchCountries";
 import { renderResults } from "../result/result";
 import {
   resultStatusWithCount,
+  resultStatusWithException,
   resultStatusWithNoInterner,
   resultStatusWithSearchText,
   setStatusIsLoading,
@@ -61,7 +62,8 @@ export const search = (): HTMLInputElement => {
         return;
       }
 
-      throw exception;
+      renderResults([]);
+      resultStatusWithException(`${exception}`);
     }
   }, 1000);
 

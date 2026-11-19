@@ -4,7 +4,6 @@ export const resultStatus = (): HTMLDivElement => {
   const div = document.createElement("div");
   div.setAttribute("id", "result_count");
   div.classList.add("result_count__wrapper");
-  div.classList.add("info");
   return div;
 };
 
@@ -16,11 +15,22 @@ export const resultStatusWithSearchText = (): void => {
   }
 
   div.replaceChildren();
-  div.textContent =
+  const d = document.createElement("div");
+  d.classList.add("info");
+
+  d.textContent =
     "Начните вводить название страны, чтобы увидеть список стран по части слова";
+
+  div.appendChild(d);
 };
 
 export const resultStatusWithNoInterner = () => {
+  resultStatusWithException(
+    "Нет возможности связаться с сервером. У вас включен интеренет?"
+  );
+};
+
+export const resultStatusWithException = (message: string) => {
   const selector = "#result_count";
   const div = document.querySelector(selector);
   if (!div) {
@@ -28,8 +38,13 @@ export const resultStatusWithNoInterner = () => {
   }
 
   div.replaceChildren();
-  div.textContent =
-    "Нет возможности связаться с сервером. У вас включен интеренет?";
+
+  const d = document.createElement("div");
+  d.classList.add("danger");
+
+  d.textContent = message;
+
+  div.appendChild(d);
 };
 
 export const resultStatusWithCount = (count: number, search: string): void => {
@@ -47,21 +62,27 @@ export const resultStatusWithCount = (count: number, search: string): void => {
 
   const br = document.createElement("br");
 
+  div.replaceChildren();
+
+  const d = document.createElement("div");
+
   if (count === 0) {
-    div.replaceChildren();
-    div.append("Ничего не найдено. Попробуйте ввести что-то другое...");
-    div.appendChild(br);
-    div.append("Вы искали: ");
-    div.appendChild(bSearch);
+    d.classList.add("danger");
+    d.append("Ничего не найдено. Попробуйте ввести что-то другое...");
+    d.appendChild(br);
+    d.append("Вы искали: ");
+    d.appendChild(bSearch);
+    div.appendChild(d);
     return;
   }
 
-  div.replaceChildren();
-  div.append("Найдено ");
-  div.appendChild(bCount);
-  div.appendChild(br);
-  div.append("Вы искали: ");
-  div.appendChild(bSearch);
+  d.classList.add("success");
+  d.append("Найдено ");
+  d.appendChild(bCount);
+  d.appendChild(br);
+  d.append("Вы искали: ");
+  d.appendChild(bSearch);
+  div.appendChild(d);
 };
 
 export const setStatusIsLoading = (): void => {
@@ -73,8 +94,13 @@ export const setStatusIsLoading = (): void => {
 
   div.replaceChildren();
 
+  const d = document.createElement("div");
+  d.classList.add("light");
+
   const span = document.createElement("span");
   span.classList.add("loader");
 
-  div.appendChild(span);
+  d.appendChild(span);
+
+  div.appendChild(d);
 };
