@@ -36,6 +36,8 @@ export const search = (): HTMLInputElement => {
     const c = new AbortController();
     current = c;
 
+    const TIMEOUT = 5000;
+
     try {
       setStatusIsLoading();
       renderResults([]);
@@ -43,12 +45,24 @@ export const search = (): HTMLInputElement => {
       renderHistorySearch();
       renderRetryButton(() => runSearch(query), query);
       await new Promise((resolve) => setTimeout(resolve, 500));
-      const countries = await searchCountries(query, c.signal);
+
+      const timeoutSignal = AbortSignal.timeout(TIMEOUT);
+      const signal = AbortSignal.any([c.signal, timeoutSignal]);
+
+      const countries = await searchCountries(query, signal);
       renderResults(countries);
       resultStatusWithCount(countries.length, query);
     } catch (exception) {
       if ((exception as Error).name === "AbortError") {
         resultStatusWithException("Отмена fetch (AbortError)");
+        return;
+      }
+
+      if (exception instanceof Error && exception.name === "TimeoutError") {
+        renderResults([]);
+        resultStatusWithException(
+          `Запрос очень долго выполняется. Превышено время: ${TIMEOUT}ms`
+        );
         return;
       }
 
