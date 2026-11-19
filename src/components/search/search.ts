@@ -28,7 +28,6 @@ export const search = (): HTMLInputElement => {
 
   const runSearch = debounce(async (query: string) => {
     runSearchRef = runSearch;
-    current?.abort();
     if (query.length === 0) {
       resultStatusWithSearchText();
       renderResults([]);
@@ -49,6 +48,7 @@ export const search = (): HTMLInputElement => {
       resultStatusWithCount(countries.length, query);
     } catch (exception) {
       if ((exception as Error).name === "AbortError") {
+        resultStatusWithException("Отмена fetch (AbortError)");
         return;
       }
 
@@ -68,6 +68,8 @@ export const search = (): HTMLInputElement => {
   }, 1000);
 
   input.addEventListener("input", () => {
+    current?.abort();
+    current = null;
     runSearch(input.value.trim());
   });
 
