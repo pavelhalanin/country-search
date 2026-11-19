@@ -15,6 +15,15 @@
     "deploy": "npx gh-pages -d ./dist -b gh-pages",
     "preview": "vite preview"
   },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md,html}": [
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
     "@eslint/css": "^2.0.1",
     "@eslint/js": "^10.0.1",
