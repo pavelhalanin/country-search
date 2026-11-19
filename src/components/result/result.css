@@ -1,0 +1,38 @@
+.result__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: space-around;
+}
+
+.result__element_block {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #06c;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.5s ease;
+
+  &:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.35);
+  }
+}
+
+.result__image_block {
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result__image_block img {
+  max-width: 64px;
+  max-height: 64px;
+  width: auto;
+  height: auto;
+}

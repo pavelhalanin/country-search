@@ -1,0 +1,19 @@
+.country_modal {
+  position: relative;
+}
+
+.country_modal__close_button {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  color: #f8d7da;
+  background-color: #842029;
+  border: 1px solid #842029;
+
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
