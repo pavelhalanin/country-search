@@ -12,6 +12,11 @@ import {
 } from "../resultStatus/resultStatus";
 import { addToHistorySearch } from "../../state/historySearch";
 import { renderHistorySearch } from "../historySearch/historySearch";
+import {
+  addExpireTime,
+  addFetchCache,
+  getFetchCache,
+} from "../../state/fetchCache";
 
 let runSearchRef: ((q: string) => void) | null = null;
 
@@ -50,7 +55,18 @@ export const search = (): HTMLInputElement => {
       const timeoutSignal = AbortSignal.timeout(TIMEOUT);
       const signal = AbortSignal.any([c.signal, timeoutSignal]);
 
+      const cache = getFetchCache(query);
+      if (cache !== null) {
+        renderResults(cache);
+        resultStatusWithCount(cache.length, query);
+        return;
+      }
+
       const countries = await searchCountries(query, signal);
+
+      addFetchCache(query, countries);
+      addExpireTime(query);
+
       renderResults(countries);
       resultStatusWithCount(countries.length, query);
     } catch (exception) {
