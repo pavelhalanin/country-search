@@ -20,6 +20,18 @@ export const resultStatusWithSearchText = (): void => {
     "Начните вводить название страны, чтобы увидеть список стран по части слова";
 };
 
+export const resultStatusWithNoInterner = () => {
+  const selector = "#result_count";
+  const div = document.querySelector(selector);
+  if (!div) {
+    throw new Error(`Node is not found: ${selector}`);
+  }
+
+  div.replaceChildren();
+  div.textContent =
+    "Нет возможности связаться с сервером. У вас включен интеренет?";
+};
+
 export const resultStatusWithCount = (count: number, search: string): void => {
   const selector = "#result_count";
   const div = document.querySelector(selector);

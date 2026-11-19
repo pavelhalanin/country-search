@@ -4,6 +4,7 @@ import { searchCountries } from "../../core/searchCountries";
 import { renderResults } from "../result/result";
 import {
   resultStatusWithCount,
+  resultStatusWithNoInterner,
   resultStatusWithSearchText,
   setStatusIsLoading,
 } from "../resultStatus/resultStatus";
@@ -45,9 +46,22 @@ export const search = (): HTMLInputElement => {
       const countries = await searchCountries(query, c.signal);
       renderResults(countries);
       resultStatusWithCount(countries.length, query);
-    } catch (e) {
-      if ((e as Error).name === "AbortError") return;
-      throw e;
+    } catch (exception) {
+      if ((exception as Error).name === "AbortError") {
+        return;
+      }
+
+      if (
+        exception instanceof Error &&
+        exception.name === "TypeError" &&
+        exception.message === "Failed to fetch"
+      ) {
+        renderResults([]);
+        resultStatusWithNoInterner();
+        return;
+      }
+
+      throw exception;
     }
   }, 1000);
 
